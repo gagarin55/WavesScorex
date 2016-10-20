@@ -38,8 +38,8 @@ case class AssetsApiRoute(application: RunnableApplication)(implicit val context
   @Path("/balance/{address}/{assetId}")
   @ApiOperation(value = "Balance", notes = "Account's balance", httpMethod = "GET")
   @ApiImplicitParams(Array(
-    new ApiImplicitParam(name = "address", value = "Address", required = true, dataType = "String", paramType = "path"),
-    new ApiImplicitParam(name = "assetId", value = "Asset id", required = true, dataType = "String", paramType = "path")
+    new ApiImplicitParam(name = "address", value = "Address", required = true, dataType = "string", paramType = "path"),
+    new ApiImplicitParam(name = "assetId", value = "Asset ID", required = true, dataType = "string", paramType = "path")
   ))
   def balance: Route = {
     path("balance" / Segment / Segment) { case (address, assetId) =>
