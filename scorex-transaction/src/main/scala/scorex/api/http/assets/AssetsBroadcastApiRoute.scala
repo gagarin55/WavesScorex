@@ -51,12 +51,6 @@ case class AssetsBroadcastApiRoute(application: Application)(implicit val contex
           js.validate[AssetIssueRequest] match {
             case JsSuccess(request: AssetIssueRequest, _) =>
               request.toTx.map { tx =>
-
-                //                Try(transactionModule.broadcastTransaction(tx)).map {
-                //                  case ValidationResult.ValidateOke =>
-                //                    JsonResponse(Json.toJson(AssetIssueResponse(tx)), StatusCodes.OK)
-                //                  case error => toResponse(error)
-                //                }.getOrElse(WrongJson.response)
                 broadcast(tx)(t => Json.toJson(AssetIssueResponse(t)))
               }.getOrElse(WrongJson.response)
 

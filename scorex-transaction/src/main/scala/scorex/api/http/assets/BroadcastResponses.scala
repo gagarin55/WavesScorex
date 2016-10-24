@@ -119,6 +119,8 @@ object BroadcastResponses {
                                    fee: Long,
                                    @ApiModelProperty(required = true)
                                    timestamp: Long,
+                                   @ApiModelProperty
+                                   attachment: Option[String],
                                    @ApiModelProperty(required = true)
                                    signature: String) {
   }
@@ -132,6 +134,7 @@ object BroadcastResponses {
       tx.amount,
       tx.fee,
       tx.timestamp,
+      if (tx.attachment.length > 0) Some(Base58.encode(tx.attachment)) else None,
       Base58.encode(tx.signature)
     )
 
@@ -143,6 +146,7 @@ object BroadcastResponses {
         (JsPath \ "amount").write[Long] and
         (JsPath \ "fee").write[Long] and
         (JsPath \ "timestamp").write[Long] and
+        (JsPath \ "attachment").writeNullable[String] and
         (JsPath \ "signature").write[String]
       ) (unlift(AssetTransferResponse.unapply))
   }
